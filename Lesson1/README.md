@@ -126,7 +126,9 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 }
 ```
 
-使用```bash mysql -h 127.0.0.1 -P 4000```可以正常连接数据库
+使用 ```bash
+mysql -h 127.0.0.1 -P 4000
+``` 可以正常连接数据库
 ```bash
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1
@@ -160,6 +162,7 @@ mysql> show databases;
 根据https://pingcap.com/blog-cn/tidb-source-code-reading-18/ 这一章关于tidb中的解析，Storage的实现tikvStore中，
 ```bash
 Begin() (Transaction, error)和BeginWithStartTS(startTS uint64) (Transaction, error)
+BeginWithStartTS(startTS uint64) (Transaction, error)
 ```
 方法都会调用
 ```bash
