@@ -15,8 +15,10 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 ```
 
 ## 编译tikv
-直接在项目根据路使用make build命令编译，因为config文件的max-open-files设置的很大，启动会报错
+直接在项目根目录使用make build命令编译，因为config文件的max-open-files设置的很大，启动会报错
+```bash
 [FATAL] [server.rs:920] ["the maximum number of open file descriptors is too small, got 2560, expect greater or equal to 82920"]
+```
 所以修改了配置文件config.rs中的配置，编译好后启动3个tikv实例：
 ```bash
 ./tikv-server --pd-endpoints="127.0.0.1:2379" --addr="127.0.0.1:30160" --data-dir=tikv1 --log-file=tikv1.log &
@@ -124,7 +126,7 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 }
 ```
 
-使用```bashmysql -h 127.0.0.1 -P 4000```可以正常连接数据库
+使用```bash mysql -h 127.0.0.1 -P 4000```可以正常连接数据库
 ```bash
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1
