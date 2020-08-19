@@ -4,8 +4,9 @@
 
 ## 启动tidb
 为了方便本机直接登录，所以在config文件里面加了skip-grant-table=true，启动命令如下：
+```bash
 sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store="tikv" --config="/Users/haibo/tidb/config/config.toml"
-
+```
 
 ## 编译pd
 直接在项目根目录直接make编译，启动命令如下：
@@ -28,6 +29,7 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 ./bin/pd-ctl store -u http://127.0.0.1:2379
 ```
 获取tikv状态数据
+```bash
 {
   "count": 3,
   "stores": [
@@ -120,8 +122,10 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
     }
   ]
 }
+```
 
-使用mysql -h 127.0.0.1 -P 4000可以正常连接数据库
+使用```bashmysql -h 127.0.0.1 -P 4000```可以正常连接数据库
+```bash
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1
 Server version: 5.7.25-TiDB-v4.0.0-beta.2-524-g73fe3ca4d-dirty TiDB Server (Apache License 2.0) Community Edition, MySQL 5.7 compatible
@@ -147,11 +151,11 @@ mysql> show databases;
 | test               |
 +--------------------+
 5 rows in set (0.01 sec)
-
+```
 
 
 ## 启动tidb事务的时候可以打印"hello transaction"
-根据https://pingcap.com/blog-cn/tidb-source-code-reading-18/这一章关于tidb中的解析，Storage的实现tikvStore中，
+根据https://pingcap.com/blog-cn/tidb-source-code-reading-18/ 这一章关于tidb中的解析，Storage的实现tikvStore中，
 ```bash
 Begin() (Transaction, error)和BeginWithStartTS(startTS uint64) (Transaction, error)
 ```
