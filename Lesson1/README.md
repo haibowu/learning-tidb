@@ -9,19 +9,24 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 
 ## 编译pd
 直接在项目根目录直接make编译，启动命令如下：
+```bash
 ./bin/pd-server --name=pd1 --data-dir=pd1 --client-urls="http://127.0.0.1:2379" --peer-urls="http://127.0.0.1:2380" --initial-cluster="pd1=http://127.0.0.1:2380" --log-file=pd1.log
-
+```
 
 ## 编译tikv
 直接在项目根据路使用make build命令编译，因为config文件的max-open-files设置的很大，启动会报错
 [FATAL] [server.rs:920] ["the maximum number of open file descriptors is too small, got 2560, expect greater or equal to 82920"]
 所以修改了配置文件config.rs中的配置，编译好后启动3个tikv实例：
+```bash
 ./tikv-server --pd-endpoints="127.0.0.1:2379" --addr="127.0.0.1:30160" --data-dir=tikv1 --log-file=tikv1.log &
 ./tikv-server --pd-endpoints="127.0.0.1:2379" --addr="127.0.0.1:30161" --data-dir=tikv2 --log-file=tikv2.log &
 ./tikv-server --pd-endpoints="127.0.0.1:2379" --addr="127.0.0.1:30162" --data-dir=tikv3 --log-file=tikv3.log &
+```
 
 使用
+```bash
 ./bin/pd-ctl store -u http://127.0.0.1:2379
+```
 获取tikv状态数据
 {
   "count": 3,
@@ -147,10 +152,17 @@ mysql> show databases;
 
 ## 启动tidb事务的时候可以打印"hello transaction"
 根据https://pingcap.com/blog-cn/tidb-source-code-reading-18/这一章关于tidb中的解析，Storage的实现tikvStore中，
-Begin() (Transaction, error)和BeginWithStartTS(startTS uint64) (Transaction, error)方法都会调用
+```bash
+Begin() (Transaction, error)和BeginWithStartTS(startTS uint64) (Transaction, error)
+```
+方法都会调用
+```bash
 func newTikvTxnWithStartTS(store *tikvStore, startTS uint64, replicaReadSeed uint32) (*tikvTxn, error)
+```
 因此在该方法里加上日志输出
+```bash
 logutil.BgLogger().Info("hello transaction")
+```
 
 
 
