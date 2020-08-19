@@ -1,18 +1,18 @@
-##编译tidb
+## 编译tidb
 直接在项目根目录使用make命令就可以编译成功，本地的LDFLAGS环境变量有别的值，导致编译失败，所以修改了下Makefile文件，
 将LDFLAGS先置空
 
-##启动tidb
+## 启动tidb
 为了方便本机直接登录，所以在config文件里面加了skip-grant-table=true，启动命令如下：
 sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store="tikv" --config="/Users/haibo/tidb/config/config.toml"
 
 
-##编译pd
+## 编译pd
 直接在项目根目录直接make编译，启动命令如下：
 ./bin/pd-server --name=pd1 --data-dir=pd1 --client-urls="http://127.0.0.1:2379" --peer-urls="http://127.0.0.1:2380" --initial-cluster="pd1=http://127.0.0.1:2380" --log-file=pd1.log
 
 
-##编译tikv
+## 编译tikv
 直接在项目根据路使用make build命令编译，因为config文件的max-open-files设置的很大，启动会报错
 [FATAL] [server.rs:920] ["the maximum number of open file descriptors is too small, got 2560, expect greater or equal to 82920"]
 所以修改了配置文件config.rs中的配置，编译好后启动3个tikv实例：
@@ -145,7 +145,7 @@ mysql> show databases;
 
 
 
-##启动tidb事务的时候可以打印"hello transaction"
+## 启动tidb事务的时候可以打印"hello transaction"
 根据https://pingcap.com/blog-cn/tidb-source-code-reading-18/这一章关于tidb中的解析，Storage的实现tikvStore中，
 Begin() (Transaction, error)和BeginWithStartTS(startTS uint64) (Transaction, error)方法都会调用
 func newTikvTxnWithStartTS(store *tikvStore, startTS uint64, replicaReadSeed uint32) (*tikvTxn, error)
