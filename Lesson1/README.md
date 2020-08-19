@@ -126,9 +126,7 @@ sudo ./tidb-server --log-file="tidbRunning.log" --path="127.0.0.1:2379" --store=
 }
 ```
 
-使用 ```bash
-mysql -h 127.0.0.1 -P 4000
-``` 可以正常连接数据库
+使用 mysql -h 127.0.0.1 -P 4000可以正常连接数据库
 ```bash
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1
